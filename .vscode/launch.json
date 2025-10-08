@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug ahoj",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/target/debug/ahoj",
+            "args": [],
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "preLaunchTask": "rust: cargo build"
+        }
+    ]
+}
