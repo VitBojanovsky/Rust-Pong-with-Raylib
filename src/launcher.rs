@@ -4,7 +4,7 @@ use raylib::prelude::*;
 pub fn menu() {
     //window open
     let (mut rl, thread) = raylib::init().size(640, 480).title("pong").build();
-    //main game loop
+    //Menu loop
     while !rl.window_should_close() {
         let mut d = rl.begin_drawing(&thread);
         d.clear_background(Color::WHITE);
