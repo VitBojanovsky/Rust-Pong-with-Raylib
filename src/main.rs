@@ -1,8 +1,9 @@
 use raylib::prelude::*;
-use std::thread::sleep;
 use std::time::Duration;
+mod launcher;
 
 fn main() {
+    launcher::menu();
     let height = 480;
     let width = 640;
     //raketa1
@@ -10,7 +11,7 @@ fn main() {
     let mut square_y = 20;
     //raketa2
     let square2_x = width - square_x - 15;
-    let mut square2_y = 100;
+    let mut square2_y = 400;
     //raketa border
     let mut borderx_raketa1;
     let mut borderx_raketa2;
@@ -92,10 +93,10 @@ fn main() {
             score2 += 1;
         }
         if ballx - 7.0 < 29.0 {
-            score1 -= 5;
+            score1 -= 2;
         }
         if ballx + 7.0 > (width as f64) - 29.0 {
-            score2 -= 5;
+            score2 -= 2;
         }
         //reset ball
         if ballx - 7.0 < 29.0 || ballx + 7.0 > (width as f64) - 29.0 {
@@ -103,29 +104,36 @@ fn main() {
             bally = (height as f64) / 2.0 - 7.0;
             ball_speed_x = 1.0;
             ball_speed_y = 1.0;
+            square2_y = 400;
         }
         //win condition
-        if score1 >= 20 {
-            d.draw_text(
-                "Player 1 Wins!",
-                width / 2 - 100,
-                height / 2 - 20,
-                40,
-                Color::RED,
-            );
-            sleep(Duration::from_millis(10000));
+        if score1 >= 3 || score2 >= 3 {
             break;
         }
-        if score2 >= 20 {
-            d.draw_text(
-                "Player 2 Wins!",
-                width / 2 - 100,
-                height / 2 - 20,
-                40,
-                Color::BLUE,
-            );
-            sleep(Duration::from_millis(10000));
-            break;
-        }
+    }
+    // After breaking out of the main loop, show the victory message for 10 seconds
+    let winner_text;
+    let winner_color;
+    if score1 >= 3 {
+        winner_text = "Player 1 Wins!";
+        winner_color = Color::RED;
+    } else if score2 >= 3 {
+        winner_text = "Player 2 Wins!";
+        winner_color = Color::BLUE;
+    } else {
+        return;
+    }
+    let start = std::time::Instant::now();
+    while start.elapsed() < Duration::from_millis(10000) {
+        let mut d = rl.begin_drawing(&thread);
+        d.clear_background(Color::WHITE);
+        d.draw_text(
+            winner_text,
+            width / 2 - 100,
+            height / 2 - 20,
+            40,
+            winner_color,
+        );
+        d.set_target_fps(60);
     }
 }
