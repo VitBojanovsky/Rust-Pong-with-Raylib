@@ -28,7 +28,7 @@ fn main() {
     let mut score1: i8 = 0;
     let mut score2: i8 = 0;
 
-    //window open
+    //open window
     let (mut rl, thread) = raylib::init().size(width, height).title("pong").build();
     //main game loop
     while !rl.window_should_close() {
