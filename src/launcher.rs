@@ -1,6 +1,5 @@
 use raylib::prelude::*;
 
-
 pub fn menu() {
     //window open
     let (mut rl, thread) = raylib::init().size(640, 480).title("pong").build();
